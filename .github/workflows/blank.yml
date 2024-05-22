@@ -26,11 +26,11 @@ jobs:
       - name: Get pull request title and check for mayor, minor or patch
         id: tag_name
         run: |
-          if [[ ${{ github.event.pull_request.title }} == *"mayor"* ]]; then
+          if [[ "${{ github.event.pull_request.title }}" == *"mayor"* ]]; then
             echo "versionType=mayor" >> "$GITHUB_OUTPUT"
-          elif [[ ${{ github.event.pull_request.title }} == *"minor"* ]]; then
+          elif [[ "${{ github.event.pull_request.title }}" == *"minor"* ]]; then
             echo "versionType=minor" >> "$GITHUB_OUTPUT"
-          elif [[ ${{ github.event.pull_request.title }} == *"patch"* ]]; then
+          elif [[ "${{ github.event.pull_request.title }}" == *"patch"* ]]; then
             echo "versionType=patch" >> "$GITHUB_OUTPUT"
           else
             echo "versionType=patch" >> "$GITHUB_OUTPUT"
