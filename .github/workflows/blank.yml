@@ -42,3 +42,19 @@ jobs:
         with:
           scheme: semver
           increment: ${{ steps.tag_name.outputs.versionType }}
+
+      - name: Create version number file in release and update
+        run: |
+          echo ${{ steps.version.outputs.version }} > release/version
+
+      - name: Zip Release
+        run: |
+          cd release
+          zip -r release.zip .
+          cd ..
+
+      - name: Upload Release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/release.zip
+          tag_name: ${{ steps.version.outputs.version }}
