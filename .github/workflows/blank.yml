@@ -16,11 +16,13 @@ jobs:
   build:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4.1.5
 
       # Runs a single command using the runners shell
       - name: Get pull request title and check for mayor, minor or patch
@@ -37,7 +39,7 @@ jobs:
           fi
 
       - name: Get next version
-        uses: reecetech/version-increment@2024.4.3
+        uses: reecetech/version-increment@2024.4.4
         id: version
         with:
           scheme: semver
@@ -52,7 +54,7 @@ jobs:
           zip -r release.zip .
 
       - name: Upload Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v1.0.6
         with:
           files: release.zip
           tag_name: ${{ steps.version.outputs.version }}
