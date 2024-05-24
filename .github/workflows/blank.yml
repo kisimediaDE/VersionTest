@@ -45,6 +45,8 @@ jobs:
     if: needs.version.outputs.versionType != 'none'
 
     steps:
+        - uses: actions/checkout@v4
+
         - name: Get next version
           uses: reecetech/version-increment@2024.4.4
           id: version
