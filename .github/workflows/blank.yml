@@ -24,30 +24,15 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4.1.5
 
-      # Runs a single command using the runners shell
-      - name: Get pull request title and check for mayor, minor or patch
-        id: tag_name
-        run: |
-          if [[ "${{ github.event.pull_request.title }}" == *"mayor"* ]]; then
-            echo "versionType=mayor" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.pull_request.title }}" == *"minor"* ]]; then
-            echo "versionType=minor" >> "$GITHUB_OUTPUT"
-          elif [[ "${{ github.event.pull_request.title }}" == *"patch"* ]]; then
-            echo "versionType=patch" >> "$GITHUB_OUTPUT"
-          else
-            echo "versionType=patch" >> "$GITHUB_OUTPUT"
-          fi
-
       - name: Get next version
         uses: reecetech/version-increment@2024.4.4
         id: version
         with:
           scheme: semver
-          increment: ${{ steps.tag_name.outputs.versionType }}
 
       - name: Create version number file in release and update
         run: |
-          echo ${{ steps.version.outputs.version }} > version
+          echo ${{ steps.version.outputs.major-version }}.${{ steps.version.outputs.minor-version }}.${{ steps.version.outputs.patch-version }} > version
 
       - name: Zip Release
         run: |
