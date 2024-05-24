@@ -54,7 +54,7 @@ jobs:
           zip -r release.zip .
 
       - name: Upload Release
-        uses: softprops/action-gh-release@v1.0.6
+        uses: softprops/action-gh-release@v2.0.5
         with:
           files: release.zip
           tag_name: ${{ steps.version.outputs.version }}
