@@ -38,7 +38,7 @@ jobs:
 
       - name: Create version number file in release and update
         run: |
-          echo ${{ steps.version.outputs.version }}\n${{ steps.tag_name.outputs.version }} > version
+          echo ${{ steps.version.outputs.version }}\|${{ steps.tag_name.outputs.version }} > version
 
       - name: Zip Release
         run: |
