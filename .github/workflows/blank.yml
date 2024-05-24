@@ -27,6 +27,7 @@ jobs:
             echo "versionType=patch" >> "$GITHUB_OUTPUT"
           else
             echo "versionType=none" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Save version type
         run: echo "${{ steps.keyword.outputs.versionType }}" > versionType.txt
