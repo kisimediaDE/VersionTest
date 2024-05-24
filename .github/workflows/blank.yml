@@ -40,7 +40,7 @@ jobs:
       - name: Get next version
         uses: reecetech/version-increment@2024.4.4
         id: version
-        if: ${{ steps.keyword.outputs.versionType != none }}
+        if: ${{ steps.keyword.outputs.versionType != "none" }}
         with:
           scheme: semver
           prerelease: false
@@ -49,21 +49,21 @@ jobs:
           increment: ${{ steps.keyword.outputs.versionType }}
 
       - id: tag_name
-        if: ${{ steps.keyword.outputs.versionType != none }}
+        if: ${{ steps.keyword.outputs.versionType != "none" }}
         run: echo "version=$(date +'%Y%m%d%H%M%S')" >> "$GITHUB_OUTPUT"    
 
       - name: Create version number file in release and update
-        if: ${{ steps.keyword.outputs.versionType != none }}
+        if: ${{ steps.keyword.outputs.versionType != "none" }}
         run: |
           echo ${{ steps.version.outputs.version }}\|${{ steps.tag_name.outputs.version }} > version
 
       - name: Zip Release
-        if: ${{ steps.keyword.outputs.versionType != none }}
+        if: ${{ steps.keyword.outputs.versionType != "none" }}
         run: |
           zip -r release.zip .
 
       - name: Upload Release
-        if: ${{ steps.keyword.outputs.versionType != none }}
+        if: ${{ steps.keyword.outputs.versionType != "none" }}
         uses: softprops/action-gh-release@v2.0.5
         with:
           files: release.zip
